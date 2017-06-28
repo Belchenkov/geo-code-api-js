@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Marvel');
+
+body {
+    font-family: 'Marvel', sans-serif;
+    background: #fff url('../img/vertical-waves.png') repeat;
+    font-size: 20px;
+}
+
+nav#navbar {
+    box-shadow: 0 1px 20px #000;
+}
+
+nav > .nav-wrapper a.brand-logo.center {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 42px;
+    text-shadow: 0 1px 3px #000;
+}
+
+form {
+    margin-top: 50px;
+}
