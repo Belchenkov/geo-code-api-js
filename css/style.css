@@ -18,4 +18,18 @@ nav > .nav-wrapper a.brand-logo.center {
 
 form {
     margin-top: 50px;
+    border: 1px solid #ccc;
+    padding: 30px!important;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #000;
+    background: #fff;
+}
+
+form label {
+    font-size: 20px!important;
+    text-shadow: 0 0 1px #ccc;        
+}
+
+form #search {
+    font-size: 23px;
 }
