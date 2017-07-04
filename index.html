@@ -25,21 +25,21 @@
 
     <main class="container">
         <div class="row">
-            <form class="col s8 offset-s2">
+            <form class="col s8 offset-s2" onsubmit="return false;">
             <div class="row">
                 <div class="input-field col s12">
                 <i class="material-icons prefix">room</i>
-                <textarea id="search" class="materialize-textarea"></textarea>
-                <label for="search">Search</label>
+                <input type="text" id="search" class="materialize-textarea" placeholder="Enter Location ...">
                 </div>
             </div>
+            <a id="submit" class="col offset-s3 s6 ofssetwaves-effect waves-light btn">Search</a>
             </form>
         </div>
 
         <div class="row">
-            <div id="formatted-address">
-
-            </div>
+            <div id="formatted-address"></div>
+            <div id="address-components"></div>
+            <div id="geometry"></div>
         </div>
     </main>
 
@@ -51,9 +51,18 @@
 
     <script>
         
-        function geocode() {
+        // Get Data From Form
+        let locationForm = document.querySelector('#submit');
 
-            let location = 'СГУ Саратов';
+        locationForm.addEventListener('click', (e) => {
+            e.preventDefault();
+            geocode(e);
+        });
+
+        function geocode(e) {
+            e.preventDefault();
+
+            let location = document.querySelector('#search').value;
             
             axios.get('https://maps.googleapis.com/maps/api/geocode/json?', {
                 params: {
@@ -68,30 +77,47 @@
                 // Formatted Address
                let formattedAddress = response.data.results[0].formatted_address;
                let formattedAddressOutput = `
-                    <ul class="">
-                        <li class="">${formattedAddress}</li>
+                    <ul class="collection with-header z-depth-5">
+                        <li class="collection-header center-align">${formattedAddress}</li>
                     </ul>
                `;
 
                // Address Components
-               let addressComponents = response.data.results[0].addressComponents;
-               let addressComponentsOutput = '<ul class=""></ul>';
+               let addressComponents = response.data.results[0].address_components;
+               let addressComponentsOutput = '<ul class="z-depth-5 collection">';
 
                for (let i = 0; i < addressComponents.length; i++) {
                     addressComponentsOutput += `
-                        
+                        <li class="collection-item">
+                            <span class="new badge">${addressComponents[i].types[0]}</span>
+                            ${addressComponents[i].long_name}
+                        </li>
                     `;
                }
 
+               addressComponentsOutput += '</ul>';
+
+
+                 // Geometry
+               let lat = response.data.results[0].geometry.location.lat;
+               let lng = response.data.results[0].geometry.location.lng;
+               let geometryOutput = `
+                    <ul class="collection with-header z-depth-5">
+                        <li class="collection-header"><strong>Latitude</strong>: ${lat}</li>
+                        <li class="collection-header"><strong>Longitude</strong>: ${lng}</li>
+                    </ul>
+               `;
+
                // Output to app
                document.querySelector('#formatted-address').innerHTML = formattedAddressOutput;
+               document.querySelector('#address-components').innerHTML = addressComponentsOutput;
+               document.querySelector('#geometry').innerHTML = geometryOutput;
             })
             .catch((error) => {
                 console.log(error);
             });
         }
 
-        geocode();
     </script>
 </body>
 </html>

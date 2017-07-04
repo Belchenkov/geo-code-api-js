@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Marvel');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Ubuntu+Condensed&subset=cyrillic-ext');
 
 body {
-    font-family: 'Marvel', sans-serif;
+    font-family: 'Ubuntu Condensed', sans-serif;
     background: #fff url('../img/vertical-waves.png') repeat;
     font-size: 20px;
 }
@@ -32,4 +32,8 @@ form label {
 
 form #search {
     font-size: 23px;
+}
+
+a#submit {
+  
 }
